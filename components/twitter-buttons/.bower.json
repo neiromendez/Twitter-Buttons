@@ -1,0 +1,36 @@
+{
+  "name": "twitter-buttons",
+  "authors": [
+    "neiro mendez alne1990@hotmail.com"
+  ],
+  "description": "An element for integrate for any page. Example:",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "seed"
+  ],
+  "main": "index.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/neiro mendez/twitter-buttons",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "^4.0.0"
+  },
+  "_release": "4b4266b8eb",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "4b4266b8ebc4417d386f3d98cffcb1aa7a126a64"
+  },
+  "_source": "git@github.com:neiromendez/twitter-buttons.git",
+  "_target": "master",
+  "_originalSource": "git@github.com:neiromendez/twitter-buttons",
+  "_direct": true
+}

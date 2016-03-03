@@ -1,0 +1,156 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<!--
+An element for integrate for any page. Example:
+
+Example:
+
+twitter-buttons></twitter-buttons
+
+twitter-buttons type="follow"  user="neiro_alejandro"  ></twitter-buttons
+
+twitter-buttons type="share"   user="Web_Components"  hashtag="hello" text="This is my text!" href="http://www.YOUR-WEB-SITE.com"></twitter-buttons
+
+twitter-buttons type="hashtag" user="neiro_alejandro"  hashtag="hello" href="http://www.YOUR-WEB-SITE.com" text="my hashtag"></twitter-buttons
+
+twitter-buttons type="mention" user="neiro_alejandro"  text="Hello Everyone!"></twitter-buttons
+@group Seed Elements
+@element twitter-buttons
+@demo demo/index.html
+@hero hero.svg
+-->
+<dom-module id="twitter-buttons">
+
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+      }
+
+    </style>
+
+    <template is="dom-if" if="{{types.share}}">
+      <!-- twitter share a link-->
+      <a
+              href$="{{shareUrl}}"
+              class="twitter-share-button"
+              data-url$="{{href}}"
+              data-hashtags$="{{hashtag}}"
+              data-text$="{{text}}"
+              data-via$="{{user}}">Share
+      </a>
+    </template>
+    <template is="dom-if" if="{{types.follow}}">
+      <!-- follow on twitter -->
+      <a
+              href$="https://twitter.com/{{user}}"
+              class="twitter-follow-button"
+              data-show-count="true">Follow @{{user}}
+      </a>
+    </template>
+    <template is="dom-if" if="{{types.hashtag}}">
+      <!-- hashtag  twitter -->
+      <a
+              href$="{{hashtagUrl}}"
+              class="twitter-hashtag-button"
+              data-url$="{{href}}"
+              data-text$="{{text}}">Tweet #{{hashtag}}
+      </a>
+    </template>
+    <template is="dom-if" if="{{types.mention}}">
+      <!-- mention on twitter -->
+      <a
+              href$="{{mentionUrl}}"
+              class="twitter-mention-button"
+              data-related$="{{user}}">Tweet to @{{user}}
+      </a>
+    </template>
+  </template>
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'twitter-buttons',
+
+    properties: {
+      /**
+       * 'user' is used for identify the @username in twitter
+       */
+      user: String,
+      /**
+       * 'type' is used for identify the type button to use
+       */
+      type: String,
+      /**
+       * 'href' is used for identify the URL to use
+       */
+      href: String,
+      /**
+       * 'text' is used for write in twitter in mention and share buttons
+       */
+      text: String,
+      /**
+       * 'hashtag' is used for write in twitter the hashtag(#) in share and hashtag buttons
+       */
+      hashtag: String,
+      /**
+       * 'shareUrl' is used to get the url to share in twitter with the @username
+       */
+      shareUrl: {
+        type: String,
+        computed: '_computeShareUrl(user)'
+      },
+      /**
+       * 'hashtagUrl' is used to get the url to share in twitter with the hashtag(#)
+       */
+      hashtagUrl: {
+        type: String,
+        computed: '_computeHashtagUrl(hashtag)'
+      },
+      /**
+       * 'mentionUrl' is used to get the url to mention in twitter with the @username
+       */
+      mentionUrl: {
+        type: String,
+        computed: '_computeMentionUrl(user)'
+      }
+    },
+    _computeShareUrl: function(user) {
+      return 'https://twitter.com/' + user;
+    },
+    _computeHashtagUrl: function(hashtag) {
+      return 'https://twitter.com/intent/tweet?button_hashtag=' + hashtag;
+    },
+    _computeMentionUrl: function(user) {
+      return 'https://twitter.com/intent/tweet?screen_name=' + user;
+    },
+
+    ready: function() {
+      this.types = {};
+      this.set('types.' + this.type || 'share', true);
+    }
+  });
+
+  !function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+            p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+      js = d.createElement(s);
+      js.id = id;
+      js.src = p + '://platform.twitter.com/widgets.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    }
+  }(document, 'script', 'twitter-wjs');
+</script>
+
